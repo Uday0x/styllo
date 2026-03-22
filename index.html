@@ -1,27 +1,675 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1 class="uday chai-p-20 chai-center">hello ppl</h1>
-    <p class="ok chai-p-10 chai-m-50 chai-bg-yellow chai-center">ok fine this is cool</p>
-    <div class="chai-center">hello eee</div>
-    <h2 class="chai-p-20 chai-p-90">
-      but R u in the cohort if u r not working hard
-    </h2>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Styllo — Style with chai-</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <ul class="chai-p-10 chai-p-90">
-      <li chai-p-5>one</li>
-      <li>two</li>
-      <li>three</li>
+    :root {
+      --chai-brown: #3b1a08;
+      --chai-warm: #c8682a;
+      --chai-cream: #fdf6ee;
+      --chai-milk: #f5e6d0;
+      --chai-spice: #e8974a;
+      --chai-dark: #1a0a02;
+      --chai-muted: #7a5c3e;
+    }
+
+    body {
+      background: var(--chai-cream);
+      color: var(--chai-brown);
+      font-family: 'Syne', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ---- NOISE TEXTURE OVERLAY ---- */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.5;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      border-bottom: 1.5px solid var(--chai-brown);
+      position: sticky;
+      top: 0;
+      background: var(--chai-cream);
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo .dot {
+      width: 10px; height: 10px;
+      background: var(--chai-warm);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    nav ul {
+      display: flex; list-style: none; gap: 2rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--chai-muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav ul li a:hover { color: var(--chai-warm); }
+
+    .nav-cta {
+      background: var(--chai-brown);
+      color: var(--chai-cream) !important;
+      padding: 0.45rem 1.1rem;
+      border-radius: 4px;
+      font-weight: 700 !important;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      min-height: 90vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-bottom: 1.5px solid var(--chai-brown);
+    }
+
+    .hero-left {
+      padding: 5rem 3rem 4rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1.5px solid var(--chai-brown);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--chai-milk);
+      border: 1px solid var(--chai-brown);
+      border-radius: 100px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--chai-muted);
+      margin-bottom: 2rem;
+      width: fit-content;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--chai-warm);
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero-title .accent {
+      color: var(--chai-warm);
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--chai-muted);
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--chai-brown);
+      color: var(--chai-cream);
+      padding: 0.75rem 1.8rem;
+      border-radius: 6px;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: var(--chai-warm); transform: translateY(-1px); }
+
+    .btn-secondary {
+      color: var(--chai-brown);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      background: var(--chai-milk);
+      border: 1px solid var(--chai-brown);
+      padding: 0.75rem 1.4rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-secondary:hover { background: var(--chai-spice); color: white; border-color: var(--chai-spice); }
+
+    /* ---- HERO RIGHT: live demo ---- */
+    .hero-right {
+      padding: 4rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.5rem;
+      background: var(--chai-milk);
+    }
+
+    .demo-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--chai-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .code-block {
+      background: var(--chai-dark);
+      color: #f0d4a8;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.8;
+      padding: 1.4rem 1.6rem;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .code-block .kw  { color: var(--chai-spice); }
+    .code-block .cls { color: #88c0d0; }
+    .code-block .str { color: #a3be8c; }
+    .code-block .cmt { color: #5a4a36; }
+
+    .live-preview {
+      border: 1.5px solid var(--chai-brown);
+      border-radius: 10px;
+      overflow: hidden;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+
+    .preview-topbar {
+      background: var(--chai-brown);
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .preview-topbar span {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--chai-spice);
+      opacity: 0.6;
+    }
+
+    .preview-topbar span:first-child { background: #e06c75; }
+    .preview-topbar span:nth-child(2) { background: #ebcb8b; }
+    .preview-topbar span:nth-child(3) { background: #a3be8c; }
+
+    .preview-body {
+      padding: 1.5rem;
+      background: white;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-demo {
+      background: #fdf6ee;
+      border: 1.5px solid #3b1a08;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #3b1a08;
+      flex: 1;
+      min-width: 100px;
+      transition: transform 0.15s;
+    }
+
+    .card-demo:hover { transform: translateY(-2px); }
+    .card-demo .tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--chai-warm); font-weight: 400; margin-top: 4px; }
+
+    /* ---- HOW IT WORKS ---- */
+    .section {
+      padding: 5rem 3rem;
+      border-bottom: 1.5px solid var(--chai-brown);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--chai-warm);
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    /* ---- UTILITIES GRID ---- */
+    .utils-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1px;
+      border: 1px solid var(--chai-brown);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .util-card {
+      padding: 1.4rem 1.6rem;
+      background: var(--chai-cream);
+      transition: background 0.2s;
+      cursor: default;
+    }
+
+    .util-card:hover { background: var(--chai-milk); }
+
+    .util-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--chai-warm);
+      margin-bottom: 0.4rem;
+    }
+
+    .util-desc {
+      font-size: 0.8rem;
+      color: var(--chai-muted);
+      line-height: 1.5;
+    }
+
+    /* ---- STEPS ---- */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--chai-brown);
+      border: 1.5px solid var(--chai-brown);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .step {
+      background: var(--chai-cream);
+      padding: 2.5rem 2rem;
+    }
+
+    .step-n {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--chai-milk);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .step h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .step p {
+      font-size: 0.85rem;
+      color: var(--chai-muted);
+      line-height: 1.6;
+    }
+
+    .step code {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--chai-milk);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      color: var(--chai-warm);
+    }
+
+    /* ---- MARQUEE STRIP ---- */
+    .marquee-strip {
+      overflow: hidden;
+      border-top: 1.5px solid var(--chai-brown);
+      border-bottom: 1.5px solid var(--chai-brown);
+      background: var(--chai-warm);
+      padding: 0.7rem 0;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      animation: marquee 18s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-item {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--chai-cream);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .marquee-item::after {
+      content: '·';
+      color: rgba(255,255,255,0.4);
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ---- CTA ---- */
+    .cta-section {
+      padding: 6rem 3rem;
+      text-align: center;
+      background: var(--chai-brown);
+      color: var(--chai-cream);
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--chai-spice);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-install {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--chai-dark);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 1rem 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--chai-cream);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .cta-install:hover { background: var(--chai-warm); }
+
+    .cta-install .copy-icon { color: var(--chai-spice); font-size: 0.8rem; }
+
+    /* ---- FOOTER ---- */
+    footer {
+      border-top: 1.5px solid var(--chai-brown);
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--chai-muted);
+    }
+
+    footer strong { color: var(--chai-warm); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { border-right: none; border-bottom: 1.5px solid var(--chai-brown); padding: 3rem 1.5rem; }
+      .hero-right { padding: 2rem 1.5rem; }
+      .steps { grid-template-columns: 1fr; }
+      nav ul { display: none; }
+      .section { padding: 3rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo"><span class="dot"></span>styllo</div>
+    <ul>
+      <li><a href="#utilities">Utilities</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="https://github.com/Uday0x/styllo" target="_blank">GitHub</a></li>
+      <li><a href="#install" class="nav-cta">Get started</a></li>
     </ul>
-  </body>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-badge">Zero config · Pure HTML</div>
+      <h1 class="hero-title">
+        Style HTML
+        <span class="accent">with chai-</span>
+      </h1>
+      <p class="hero-sub">
+        A lightweight, class-driven styling engine by <strong>Styllo</strong>. Drop a <code style="font-family: 'JetBrains Mono'; font-size: 0.85em; background: var(--chai-milk); padding: 2px 6px; border-radius: 4px;">chai-</code> prefix on any element and watch it style itself — no build step, no config, pure simplicity.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('install').scrollIntoView({behavior:'smooth'})">Get started</button>
+        <button class="btn-secondary">npm i styllo-css</button>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <p class="demo-label">Write this HTML</p>
+      <div class="code-block">
+        <span class="cmt">&lt;!-- just add chai- classes --&gt;</span><br>
+        &lt;<span class="kw">div</span> <span class="cls">class</span>=<span class="str">"chai-p-20 chai-flex chai-ai-center"</span>&gt;<br>
+        &nbsp;&nbsp;&lt;<span class="kw">h1</span> <span class="cls">class</span>=<span class="str">"chai-fs-32 chai-center"</span>&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Hello, Styllo ✨<br>
+        &nbsp;&nbsp;&lt;/<span class="kw">h1</span>&gt;<br>
+        &nbsp;&nbsp;&lt;<span class="kw">p</span> <span class="cls">class</span>=<span class="str">"chai-bg-yellow chai-p-10"</span>&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Styled instantly.<br>
+        &nbsp;&nbsp;&lt;/<span class="kw">p</span>&gt;<br>
+        &lt;/<span class="kw">div</span>&gt;
+      </div>
+
+      <p class="demo-label">Get this result</p>
+      <div class="live-preview">
+        <div class="preview-topbar">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="preview-body">
+          <div class="card-demo">padding<div class="tag">chai-p-20</div></div>
+          <div class="card-demo">flex layout<div class="tag">chai-flex</div></div>
+          <div class="card-demo">font size<div class="tag">chai-fs-32</div></div>
+          <div class="card-demo">bg color<div class="tag">chai-bg-yellow</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-track" id="marqueeTrack">
+      <span class="marquee-item">chai-p-{n}</span>
+      <span class="marquee-item">chai-m-{n}</span>
+      <span class="marquee-item">chai-bg-{color}</span>
+      <span class="marquee-item">chai-flex</span>
+      <span class="marquee-item">chai-grid</span>
+      <span class="marquee-item">chai-fs-{n}</span>
+      <span class="marquee-item">chai-br-{n}</span>
+      <span class="marquee-item">chai-shadow</span>
+      <span class="marquee-item">chai-center</span>
+      <span class="marquee-item">chai-w-{n}</span>
+      <span class="marquee-item">chai-h-{n}</span>
+      <span class="marquee-item">chai-text-{color}</span>
+      <span class="marquee-item">chai-jc-{val}</span>
+      <span class="marquee-item">chai-ai-{val}</span>
+      <span class="marquee-item">chai-border-{val}</span>
+      <span class="marquee-item">chai-pt-{n}</span>
+      <span class="marquee-item">chai-pb-{n}</span>
+      <span class="marquee-item">chai-mt-{n}</span>
+      <span class="marquee-item">chai-mb-{n}</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item">chai-p-{n}</span>
+      <span class="marquee-item">chai-m-{n}</span>
+      <span class="marquee-item">chai-bg-{color}</span>
+      <span class="marquee-item">chai-flex</span>
+      <span class="marquee-item">chai-grid</span>
+      <span class="marquee-item">chai-fs-{n}</span>
+      <span class="marquee-item">chai-br-{n}</span>
+      <span class="marquee-item">chai-shadow</span>
+      <span class="marquee-item">chai-center</span>
+      <span class="marquee-item">chai-w-{n}</span>
+      <span class="marquee-item">chai-h-{n}</span>
+      <span class="marquee-item">chai-text-{color}</span>
+      <span class="marquee-item">chai-jc-{val}</span>
+      <span class="marquee-item">chai-ai-{val}</span>
+      <span class="marquee-item">chai-border-{val}</span>
+      <span class="marquee-item">chai-pt-{n}</span>
+      <span class="marquee-item">chai-pb-{n}</span>
+      <span class="marquee-item">chai-mt-{n}</span>
+      <span class="marquee-item">chai-mb-{n}</span>
+    </div>
+  </div>
+
+  <!-- UTILITIES -->
+  <section class="section" id="utilities">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Every utility, at a glance</h2>
+    </div>
+    <div class="utils-grid">
+      <div class="util-card"><div class="util-name">chai-p-{n}</div><div class="util-desc">Sets padding on all sides in px</div></div>
+      <div class="util-card"><div class="util-name">chai-m-{n}</div><div class="util-desc">Sets margin on all sides in px</div></div>
+      <div class="util-card"><div class="util-name">chai-pt/pb/pl/pr</div><div class="util-desc">Individual padding sides</div></div>
+      <div class="util-card"><div class="util-name">chai-mt/mb</div><div class="util-desc">Top &amp; bottom margin control</div></div>
+      <div class="util-card"><div class="util-name">chai-w-{n}</div><div class="util-desc">Width in px (or auto/100%)</div></div>
+      <div class="util-card"><div class="util-name">chai-h-{n}</div><div class="util-desc">Height in px (or auto/100%)</div></div>
+      <div class="util-card"><div class="util-name">chai-bg-{color}</div><div class="util-desc">Background color, any CSS value</div></div>
+      <div class="util-card"><div class="util-name">chai-text-{color}</div><div class="util-desc">Text color, any CSS value</div></div>
+      <div class="util-card"><div class="util-name">chai-fs-{n}</div><div class="util-desc">Font size in px</div></div>
+      <div class="util-card"><div class="util-name">chai-center</div><div class="util-desc">Centers text via text-align</div></div>
+      <div class="util-card"><div class="util-name">chai-br-{n}</div><div class="util-desc">Border radius in px</div></div>
+      <div class="util-card"><div class="util-name">chai-border-{val}</div><div class="util-desc">Full border shorthand value</div></div>
+      <div class="util-card"><div class="util-name">chai-flex</div><div class="util-desc">Sets display: flex</div></div>
+      <div class="util-card"><div class="util-name">chai-grid</div><div class="util-desc">Sets display: grid</div></div>
+      <div class="util-card"><div class="util-name">chai-jc-{val}</div><div class="util-desc">justify-content shorthand</div></div>
+      <div class="util-card"><div class="util-name">chai-ai-{val}</div><div class="util-desc">align-items shorthand</div></div>
+      <div class="util-card"><div class="util-name">chai-shadow</div><div class="util-desc">Adds a subtle box shadow</div></div>
+      <div class="util-card"><div class="util-name">chai-relative</div><div class="util-desc">position: relative</div></div>
+      <div class="util-card"><div class="util-name">chai-absolute</div><div class="util-desc">position: absolute</div></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">How it works</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <h3>Import the script</h3>
+        <p>Install via <code>npm i styllo-css</code>, then import and call <code>initialize()</code> — or let <code>DOMContentLoaded</code> handle it automatically.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <h3>Add chai- classes</h3>
+        <p>Write classes like <code>chai-p-20</code>, <code>chai-flex</code>, or <code>chai-bg-red</code> directly on your HTML elements.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <h3>Styles apply instantly</h3>
+        <p>The engine scans, maps each <code>chai-*</code> class to an inline style, then removes the class. Clean, no residue.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTALL CTA -->
+  <section class="cta-section" id="install">
+    <h2>Ready to brew?</h2>
+    <p>One import. Infinite style.</p>
+    <div class="cta-install" onclick="navigator.clipboard.writeText('npm install styllo-css'); this.querySelector('.copy-icon').textContent = '✓'">
+      <span>npm install styllo-css</span>
+      <span class="copy-icon">⎘</span>
+    </div>
+    <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center;">
+      <a href="https://www.npmjs.com/package/styllo-css" target="_blank" style="color: var(--chai-spice); font-size: 0.85rem; text-decoration: none; border-bottom: 1px solid var(--chai-spice);">npmjs →</a>
+      <a href="https://github.com/Uday0x/styllo" target="_blank" style="color: var(--chai-spice); font-size: 0.85rem; text-decoration: none; border-bottom: 1px solid var(--chai-spice);">GitHub →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Built with ☕ by <strong>Styllo</strong></span>
+    <span>The Tailwind of the desi web.</span>
+  </footer>
+
 
   <script type="module">
     import initilaize from  "./src/index.js";
     initilaize()
   </script> 
+</body>
 </html>
