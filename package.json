@@ -1,12 +1,19 @@
 {
-  "name": "chai-css",
-  "version": "1.0.0",
-  "main": "index.js",
-  "type":"module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "name": "styllo-css",
+  "version": "1.0.4",
+  "description": "A lightweight utility-first CSS engine that parses class names and applies styles dynamically at runtime.",
+  "main": "src/index.js",
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "css",
+    "utility-css",
+    "tailwind-like",
+    "javascript",
+    "style-engine"
+  ],
+  "author": "Uday",
+  "license": "MIT"
 }

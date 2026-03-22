@@ -1,0 +1,6 @@
+demo/
+*.html
+node_modules/
+.git
+.gitignore
+README.md
